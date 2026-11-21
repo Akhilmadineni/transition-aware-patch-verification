@@ -1,0 +1,16 @@
+cff-version: "1.2.0"
+message: "If you use this software, please cite this software archive and the associated study."
+type: "software"
+title: "Transition-Aware Verification of AI-Generated Infrastructure Security Patches: code, synthetic data and results"
+version: "1.0.0"
+authors:
+  - family-names: "Madineni"
+    given-names: "Akhil Venkata Sai"
+license: "MIT"
+abstract: "Experiment code, synthetic input data, result tables and figures for the study \"Transition-Aware Verification of AI-Generated Infrastructure Security Patches\". The supplied CSV datasets are synthetic. The raw-data generator is not included. See README.md for reproduction instructions and study limitations."
+keywords:
+  - "infrastructure security"
+  - "patch verification"
+  - "transition features"
+  - "nearest neighbours"
+repository-code: "https://github.com/Akhilmadineni/transition-aware-patch-verification"

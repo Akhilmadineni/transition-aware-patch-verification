@@ -1,0 +1,20 @@
+{
+  "title": "Transition-Aware Verification of AI-Generated Infrastructure Security Patches: code, synthetic data and results",
+  "version": "1.0.0",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "mit",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Madineni, Akhil Venkata Sai"
+    }
+  ],
+  "description": "<p>Experiment code, synthetic data and supplied numerical results for <em>Transition-Aware Verification of AI-Generated Infrastructure Security Patches</em>.</p><p>The archive contains scripts, input CSVs, result tables and figures. Data are entirely synthetic. The raw-data generator is not included; the experiments run from the included CSV files. See the repository README for installation, reproduction commands and limitations.</p><p>Source repository: <a href=\"https://github.com/Akhilmadineni/transition-aware-patch-verification\">https://github.com/Akhilmadineni/transition-aware-patch-verification</a>.</p>",
+  "keywords": [
+    "infrastructure security",
+    "patch verification",
+    "transition features",
+    "nearest neighbours"
+  ]
+}

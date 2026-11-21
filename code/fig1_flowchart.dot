@@ -1,0 +1,74 @@
+digraph G {
+  graph [rankdir=TB, fontname="Helvetica-Bold", fontsize=19, nodesep=0.16, ranksep=0.22, newrank=true,
+         compound=true, pad=0.06];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=18, fillcolor="#eeeeee",
+         color="#666666", penwidth=1.0, margin="0.05,0.03", height=0.4, width=1.5];
+  edge  [color="#444444", arrowsize=0.7, fontname="Helvetica", fontsize=18, penwidth=1.2];
+
+  subgraph cluster_data {
+    label="1. Data layer"; labeljust=r; style="rounded,filled"; fillcolor="#f4f4f4"; color="#bbbbbb";
+    patch  [label="LLM IaC patch plan\n(replace, CBD, rules\n−/+, deps, parallel)"];
+    memory [label="Replay memory\nM = {(z_i, y_i)}", shape=cylinder, height=0.75];
+    {rank=same; patch; memory;}
+  }
+
+  subgraph cluster_prep {
+    label="2. Pre-processing (train fit)"; labeljust=r; style="rounded,filled"; fillcolor="#eef3f8"; color="#a9bfd6";
+    impute [label="Median impute,\nmissing flags"];
+    clip   [label="Winsorise 99.5%,\nlog1p tails"];
+    enc    [label="One-hot, z-score\nx (43 dims)"];
+    tf     [label="Transition feat.\nφ(x), Eq. (1)", fillcolor="#f6d5d1", color="#c0392b"];
+    {rank=same; impute; clip;}
+    {rank=same; enc; tf;}
+  }
+
+  subgraph cluster_knn {
+    label="3. Proposed DW-kNN-TV"; labeljust=r; style="rounded,filled"; fillcolor="#fbeeec"; color="#d9a39b";
+    node [fillcolor="#f6d5d1", color="#c0392b"];
+    mi    [label="MI metric\nweights w_j, Eq. (2)"];
+    dist  [label="Distance d_w,\nEq. (3)"];
+    nbr   [label="k nearest\nreplays N_k(z)"];
+    vote  [label="Votes (d_i+ε)^−p\nP(c|z), Eq. (4)"];
+    post  [label="Prior-corrected\nclass ĉ, Eq. (5)"];
+    tune  [label="Best val.\nmacro-F1?", shape=diamond, style="filled", height=0.8, width=1.7];
+    risk  [label="r(z) ≥ τ ?\nEq. (6)", shape=diamond, style="filled", height=0.75, width=1.5];
+    {rank=same; mi; dist;}
+    {rank=same; vote; nbr;}
+    {rank=same; post; tune;}
+  }
+
+  subgraph cluster_out {
+    label="4. Verification, evaluation"; labeljust=l; labelloc=b; style="rounded,filled"; fillcolor="#f4f4f4"; color="#bbbbbb";
+    replay [label="Sandbox replay of\ntransition states", fillcolor="#f6d5d1", color="#c0392b"];
+    upd    [label="Append (z, y) to M\n(no retraining)", fillcolor="#f6d5d1", color="#c0392b"];
+    apply  [label="Apply patch, log\npredicted class ĉ"];
+    eval   [label="vs static, LR, DT:\nF1, PR-AUC, recall"];
+    {rank=same; replay; apply;}
+    {rank=same; eval; upd;}
+    apply -> replay [style=invis];
+    eval -> upd [style=invis];
+  }
+
+  patch -> impute;
+  impute -> clip;
+  clip -> enc;
+  tf -> enc [dir=back];
+  impute -> tf [style=invis];
+  enc -> dist [style=invis];
+  tf -> mi [label=" z = [x, φ]"];
+  mi -> dist;
+  memory:s -> dist:e [style=dashed, color="#c0392b"];
+  dist -> nbr;
+  vote -> nbr [dir=back];
+  mi -> vote [style=invis];
+  vote -> post;
+  post -> tune;
+  tune:e -> nbr:e [style=dashed, color="#c0392b", fontcolor="#c0392b", label="no: next\n(k,p,α)"];
+  tune:s -> risk [xlabel="yes "];
+  post -> risk [style=invis];
+  risk -> replay [taillabel="yes", labeldistance=2.2, labelangle=-35];
+  risk -> apply  [taillabel="no", labeldistance=2.2, labelangle=35];
+  replay -> upd;
+  upd -> memory [style=dashed, color="#c0392b", constraint=false, xlabel="feedback"];
+  apply -> eval;
+}

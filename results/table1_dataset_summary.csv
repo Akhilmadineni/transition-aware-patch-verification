@@ -1,0 +1,15 @@
+Item,Value
+Patches (rows),"12,000"
+Raw columns,25
+Plan-level input features,16 numeric + 4 categorical
+Unsafe rate (non-safe outcome),33.9%
+Static check passed,93.3%
+Unsafe among static-passed,31.2%
+Class safe,"7,931 (66.1%)"
+Class final_state_insecure,885 (7.4%)
+Class transient_exposure,"1,425 (11.9%)"
+Class transient_outage,"1,056 (8.8%)"
+Class transient_exposure_and_outage,703 (5.9%)
+Missing eventual_consistency_score,1.7%
+Missing live_connections,2.7%
+Missing generator_confidence,2.2%

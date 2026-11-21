@@ -1,0 +1,4 @@
+generator_model,final_state_insecure,safe,transient_exposure,transient_exposure_and_outage,transient_outage
+LLM-A,343,3314,374,235,474
+LLM-B,316,2700,609,287,333
+LLM-C,226,1917,442,181,249

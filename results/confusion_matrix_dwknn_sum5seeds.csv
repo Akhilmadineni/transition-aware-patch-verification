@@ -1,0 +1,6 @@
+,safe,final_state_insecure,transient_exposure,transient_outage,transient_exposure_and_outage
+safe,6962,217,470,247,34
+final_state_insecure,323,440,61,49,12
+transient_exposure,342,52,897,62,72
+transient_outage,326,30,87,537,75
+transient_exposure_and_outage,102,11,227,126,239

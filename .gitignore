@@ -1,0 +1,36 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Python bytecode and test/tool caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+
+# Local environments and settings
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+
+# Logs and temporary files
+*.log
+results/run_log.txt
+*.tmp
+*.bak
+
+# Local credentials and private keys
+*.pem
+*.key
+credentials.json
+service-account*.json
